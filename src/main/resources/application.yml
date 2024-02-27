@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: publisher-test
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+    listener:
+      simple:
+        default-requeue-rejected: false
+      direct:
+        retry:
+          max-interval: 10000
+          max-attempts: 3
+  datasource:
+    url: jdbc:mariadb://localhost:3306/publisherdb
+    username: publisherdb
+    password: publisherdb
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: false
+server:
+  port: 8082
+openapi:
+  name: ${spring.application.name}
+  title: ${spring.application.name}
+  version: '@project.version@'
+
+
